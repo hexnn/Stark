@@ -33,11 +33,11 @@
 |             |Parquet     |√         |√         |√         |√         |√      |增、删、改|
 
 ## Stark引擎 [预览版] 使用指南
-* 点击下载：[Stark-1.0-preview.jar](https://github.com/hexnn/stark/releases/download/1.0-preview/Stark-1.0-preview.jar)
-* 上传`Stark-1.0-preview.jar`到服务器（需要安装[Spark3.x](https://spark.apache.org/downloads.html)客户端，官网下载解压即可）
-* 修改`Stark-1.0-preview.jar`根目录下的`rule.json`规则文件，指定`source`和`sink`中的 [MySQL] 数据源连接信息
-* 进入`$SPARK_HOME/bin`目录下，执行`spark-submit Stark-1.0-preview.jar`命令，等待任务执行结束
-* 查看`sink`节点指定的数据源输出表，验证数据是否采集成功
+* 点击下载：[Stark-1.0.0-preview.jar](https://github.com/hexnn/Stark/releases/download/1.0.0-preview/Stark-1.0.0-preview.jar) 
+* 修改`Stark-1.0.0-preview.jar`根目录下的`rule.json`规则文件，指定`source`和`sink`中的 [MySQL] 数据源连接信息
+* 上传修改后的`Stark-1.0.0-preview.jar`到服务器（需要安装[Spark3.x](https://spark.apache.org/downloads.html)客户端，官网下载解压即可）
+* 进入`$SPARK_HOME/bin`目录下，执行`spark-submit Stark-1.0.0-preview.jar`命令，等待任务执行结束
+* 进入 [MySQL] 数据库，查看`sink`节点指定的输出表，验证数据是否采集成功
 > 注意：[预览版] 只能使用 [MySQL] 数据源做 [批处理] 操作，想要体验Stark引擎完整版功能请联系↓↓↓
 
 ## 完整版试用及定制化开发
