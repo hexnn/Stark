@@ -33,6 +33,73 @@
 |             |ORC         |√         |√         |√         |√         |增      |增      |
 |             |Parquet     |√         |√         |√         |√         |增      |增      |
 
+## 规则文件样例（开箱即用，批流一体，多表关联）
+```
+{
+  "env": {
+    "param": "hdfs://cluster/starks/params/test.json",
+  },
+  "source": [
+    {
+      "identifier": "ss001",
+      "name": "用户基本信息表(存量数据)",
+      "type": "ORACLE",
+      "dataset": "users_basic",
+      "mode": "BATCH",
+      "connection": {
+        "url": "jdbc:oracle:thin:@//127.0.0.1:1521/XE",
+        "driver": "oracle.jdbc.OracleDriver",
+        "user": "system",
+        "password": "system"
+      }
+    },
+    {
+      "identifier": "ss002",
+      "name": "用户详细信息表(实时更新)",
+      "type": "MYSQL",
+      "dataset": "users_detail",
+      "mode": "STREAM",
+      "connection": {
+        "url": "jdbc:mysql://127.0.0.1:3306/test",
+        "driver": "com.mysql.cj.jdbc.Driver",
+        "user": "root",
+        "password": "root"
+      }
+    }
+  ],
+  "transform": [
+    {
+      "identifier": "tf001",
+      "name": "用户基本信息和详细信息关联合并",
+      "source": ["ss001", "ss002"],
+      "sql": "select ss001.*, ss002.detail as detail from ss001 inner join ss002 on ss001.id = ss002.id",
+      "transout": ["ts001"]
+    }
+  ],
+  "transout": [
+    {
+      "identifier": "ts001",
+      "transform": ["tf001"],
+      "sink": ["sk001"]
+    }
+  ],
+  "sink": [
+    {
+      "identifier": "sk001",
+      "name": "通过JDBC协议输出到HIVE数仓",
+      "type": "HIVE",
+      "dataset": "users_info",
+      "mode": "APPEND",
+      "connection": {
+        "url": "jdbc:hive2://127.0.0.1:10000/test",
+        "driver": "org.apache.hive.jdbc.HiveDriver",
+        "user": "hive"
+      }
+    }
+  ]
+}
+```
+
 ## Stark引擎 [预览版] 使用指南
 * 点击下载：[Stark-1.0.0-preview.jar](https://github.com/hexnn/Stark/releases/download/1.0.0-preview/Stark-1.0.0-preview.jar) 
 * 修改`Stark-1.0.0-preview.jar`根目录下的`rule.json`规则文件，指定`source`和`sink`中的 [MySQL] 数据源连接信息
