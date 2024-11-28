@@ -88,33 +88,110 @@
     {
       "identifier": "ts001",
       "transform": ["tf001"],
-      "sink": ["sk001"]
+      "sink": ["sk001","sk002","sk003","sk004","sk005","sk006","sk007"]
     }
   ],
   "sink": [
     {
       "identifier": "sk001",
-      "name": "通过JDBC协议输出到HIVE数仓",
-      "type": "HIVE",
-      "dataset": "users_info",
+      "name": "通过JDBC协议输出到MYSQL(实时更新)",
+      "type": "MYSQL",
+      "dataset": "users_basic_detail",
       "mode": "APPEND",
       "connection": {
-        "url": "jdbc:hive2://127.0.0.1:10000/test",
+        "url": "jdbc:mysql://127.0.0.1:3306/stark",
+        "driver": "com.mysql.cj.jdbc.Driver",
+        "user": "stark",
+        "password": "stark"
+      }
+    },
+    {
+      "identifier": "sk002",
+      "name": "通过JDBC协议输出到ORACLE(实时更新)",
+      "type": "ORACLE",
+      "dataset": "users_basic_detail",
+      "mode": "APPEND",
+      "connection": {
+        "url": "jdbc:oracle:thin:@127.0.0.1:1521:XE",
+        "driver": "oracle.jdbc.OracleDriver",
+        "user": "stark",
+        "password": "stark"
+      }
+    },
+    {
+      "identifier": "sk003",
+      "name": "通过JDBC协议输出到POSTGRESQL(实时更新)",
+      "type": "POSTGRESQL",
+      "dataset": "users_basic_detail",
+      "mode": "APPEND",
+      "connection": {
+        "url": "jdbc:postgresql://127.0.0.1:5432/stark",
+        "driver": "org.postgresql.Driver",
+        "user": "stark",
+        "password": "stark"
+      }
+    },
+    {
+      "identifier": "sk004",
+      "name": "通过JDBC协议输出到DB2(实时更新)",
+      "type": "DB2",
+      "dataset": "users_basic_detail",
+      "mode": "APPEND",
+      "connection": {
+        "url": "jdbc:db2://127.0.0.1:50000/stark",
+        "driver": "com.ibm.db2.jcc.DB2Driver",
+        "user": "stark",
+        "password": "stark"
+      }
+    },
+    {
+      "identifier": "sk005",
+      "name": "通过ThriftServer协议输出到HIVE(实时更新)",
+      "type": "HIVE",
+      "dataset": "users_basic_detail",
+      "mode": "APPEND",
+      "connection": {
+        "thrift": "thrift://127.0.0.1:9083",
+        "database": "stark"
+      }
+    },
+    {
+      "identifier": "sk006",
+      "name": "通过JDBC协议输出到HIVE(实时更新)",
+      "type": "HIVEJDBC",
+      "dataset": "users_basic_detail",
+      "mode": "APPEND",
+      "connection": {
+        "url": "jdbc:hive2://127.0.0.1:10000/stark",
         "driver": "org.apache.hive.jdbc.HiveDriver",
-        "user": "hive"
+        "user": "stark"
+      }
+    },
+    {
+      "identifier": "sk007",
+      "name": "通过JDBC协议输出到SQLSERVER(实时更新)",
+      "type": "SQLSERVER",
+      "schema": "stark",
+      "dataset": "users_basic_detail",
+      "mode": "APPEND",
+      "connection": {
+        "url": "jdbc:sqlserver://;serverName=127.0.0.1;port=1433;databaseName=stark",
+        "driver": "com.microsoft.sqlserver.jdbc.SQLServerDriver",
+        "user": "sa",
+        "password": "password"
       }
     }
   ]
 }
 ```
 
-## Stark引擎 [预览版] 使用指南
-* 点击下载：[Stark-1.1.0-preview.jar](https://github.com/hexnn/Stark/releases/download/1.1.0-preview/Stark-1.1.0-preview.jar) 
-* 修改 `Stark-1.1.0-preview.jar` 根目录下的 `rule.json` 规则文件，指定 `source` 和 `sink` 中的 `[MySQL/Oracle/PostgreSQL]` 数据源连接信息
-* 上传修改后的 `Stark-1.1.0-preview.jar` 到服务器（需要安装[Spark3.x](https://spark.apache.org/downloads.html)客户端，官网下载解压即可）
-* 进入 `$SPARK_HOME/bin` 目录下，执行 `spark-submit Stark-1.1.0-preview.jar` 命令，等待任务执行结束
-* 进入 `[MySQL/Oracle/PostgreSQL]` 数据库，查看 `sink` 节点指定的输出表，验证数据是否采集成功
-> 注意：`[预览版]` 只能使用 `[MySQL/Oracle/PostgreSQL]` 数据源做 `[批处理]` 操作，想要体验Stark引擎完整版功能请联系↓↓↓
+## Stark引擎 `[预览版]` 重磅更新！支持[MySQL/Oracle/PostgreSQL/DB2/SQLServer/HiveJDBC]六种数据源
+* 点击下载：[Stark-1.2.0-preview.jar](https://github.com/hexnn/Stark/releases/download/1.2.0-preview/Stark-1.2.0-preview.jar) 
+* 修改 `Stark-1.2.0-preview.jar` 根目录下的 `rule.json` 规则文件，指定 `source` 和 `sink` 中的 `[MySQL/Oracle/PostgreSQL/DB2/SQLServer/HiveJDBC]` 数据源连接信息
+* 上传修改后的 `Stark-1.2.0-preview.jar` 到服务器（需要安装[Spark3.x](https://spark.apache.org/downloads.html)客户端，官网下载tgz包解压即可）
+* 进入 `$SPARK_HOME/bin` 目录下，执行 `spark-submit --master local[*] Stark-1.2.0-preview.jar` 命令，等待任务执行结束
+* 进入 `[MySQL/Oracle/PostgreSQL/DB2/SQLServer/HiveJDBC]` 数据库，查看 `sink` 节点指定的输出表，验证数据是否采集成功
+> 注意：`[预览版]` 只能使用 `[MySQL/Oracle/PostgreSQL/DB2/SQLServer/HiveJDBC]` 数据源做 `[批处理]` 操作，想要体验Stark引擎完整版功能请联系↓↓↓
 
 ## 完整版免费试用及定制化开发
 * 通过以下方式了解更多关于Stark引擎的相关信息，可试用完整版功能，也可接受业务定制化开发需求↓↓↓
