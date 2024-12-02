@@ -89,7 +89,7 @@
     {
       "identifier": "ts001",
       "transform": ["tf001"],
-      "sink": ["sk001","sk002","sk003","sk004","sk005","sk006","sk007"]
+      "sink": ["sk001","sk002","sk003","sk004","sk005","sk006","sk007","sk008","sk009","sk010","sk011","sk012","sk013"]
     }
   ],
   "sink": [
@@ -180,6 +180,60 @@
         "driver": "com.microsoft.sqlserver.jdbc.SQLServerDriver",
         "user": "sa",
         "password": "password"
+      }
+    },
+    {
+      "identifier": "sk008",
+      "name": "输出到EXCEL文件(实时更新)",
+      "type": "EXCEL",
+      "mode": "APPEND",
+      "connection": {
+        "url": "hdfs://cluster/stark/users_basic_detail.xlsx"
+      }
+    },
+    {
+      "identifier": "sk009",
+      "name": "输出到JSON文件(实时更新)",
+      "type": "JSON",
+      "mode": "APPEND",
+      "connection": {
+        "url": "hdfs://cluster/stark/users_basic_detail.json"
+      }
+    },
+    {
+      "identifier": "sk010",
+      "name": "输出到TXT文件(实时更新)",
+      "type": "TEXT",
+      "mode": "APPEND",
+      "connection": {
+        "url": "hdfs://cluster/stark/users_basic_detail.txt"
+      }
+    },
+    {
+      "identifier": "sk011",
+      "name": "输出到CSV文件(实时更新)",
+      "type": "CSV",
+      "mode": "APPEND",
+      "connection": {
+        "url": "hdfs://cluster/stark/users_basic_detail.csv"
+      }
+    },
+    {
+      "identifier": "sk012",
+      "name": "输出到ORC文件(实时更新)",
+      "type": "ORC",
+      "mode": "APPEND",
+      "connection": {
+        "url": "hdfs://cluster/stark/users_basic_detail.orc"
+      }
+    },
+    {
+      "identifier": "sk013",
+      "name": "输出到PARQUET文件(实时更新)",
+      "type": "PARQUET",
+      "mode": "APPEND",
+      "connection": {
+        "url": "hdfs://cluster/stark/users_basic_detail.parquet"
       }
     }
   ]
