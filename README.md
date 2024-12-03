@@ -74,14 +74,23 @@
         "user": "root",
         "password": "root"
       }
+    },
+    {
+      "identifier": "ss003",
+      "name": "用户维度信息表(存量数据)",
+      "type": "CSV",
+      "mode": "BATCH",
+      "connection": {
+        "url": "hdfs://cluster/stark/users.csv"
+      }
     }
   ],
   "transform": [
     {
       "identifier": "tf001",
-      "name": "用户基本信息和详细信息关联合并",
-      "source": ["ss001", "ss002"],
-      "sql": "select ss001.*, ss002.detail as detail from ss001 inner join ss002 on ss001.id = ss002.id",
+      "name": "根据CSV中的用户维度信息，对用户基本信息和详细信息进行关联合并",
+      "source": ["ss001", "ss002", "ss003"],
+      "sql": "select ss001.*, ss002.detail as detail from ss001 inner join ss002 on ss001.id = ss002.id inner join ss003 on ss001.id = ss003.id",
       "transout": ["ts001"]
     }
   ],
