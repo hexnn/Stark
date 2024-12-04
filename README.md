@@ -252,7 +252,7 @@
 ## Stark引擎 `[预览版]` 重磅更新！支持[MySQL/Oracle/PostgreSQL/DB2/SQLServer/HiveJDBC]六种数据源
 * 点击下载：[Stark-1.2.0-preview.jar](https://github.com/hexnn/Stark/releases/download/1.2.0-preview/Stark-1.2.0-preview.jar) 
 * 修改 `Stark-1.2.0-preview.jar` 根目录下的 `rule.json` 规则文件，指定 `source` 和 `sink` 中的 `[MySQL/Oracle/PostgreSQL/DB2/SQLServer/HiveJDBC]` 数据源连接信息
-* 上传修改后的 `Stark-1.2.0-preview.jar` 到服务器（需要安装[Spark3.x](https://spark.apache.org/downloads.html)客户端，官网下载tgz包解压，安装配置JAVA_HOME即可运行）
+* 上传修改后的 `Stark-1.2.0-preview.jar` 到服务器（需要安装[Spark3.x](https://archive.apache.org/dist/spark/spark-3.3.4/spark-3.3.4-bin-hadoop3.tgz)客户端，配置JAVA_HOME环境变量即可运行）
 * 进入 `$SPARK_HOME/bin` 目录下，执行 `spark-submit --master local[*] Stark-1.2.0-preview.jar` 命令，等待任务执行结束
 * 进入 `[MySQL/Oracle/PostgreSQL/DB2/SQLServer/HiveJDBC]` 数据库，查看 `sink` 节点指定的输出表，验证数据是否采集成功
 > 注意：`[预览版]` 只能使用 `[MySQL/Oracle/PostgreSQL/DB2/SQLServer/HiveJDBC]` 数据源做 `[批处理]` 操作，想要体验Stark引擎完整版功能请联系↓↓↓
