@@ -4,7 +4,7 @@
 * 【批流一体】支持离线、实时、离线实时混合三种读写模式，离线和实时数据全流程打通
 * 【变化捕获】支持CDC变化数据捕获，实时监测数据变化并更新到目标，支持实时与离线数据多源异构融合
 * 【来源丰富】支持关系数据库、NoSQL数据仓库、图数据库、文件等几十种数据源，满足各种数据对接需求
-* 【信创支持】支持X86及ARM架构的国产CPU及操作系统中部署，支持达梦、人大金仓等国产信创数据源
+* 【信创支持】支持基于X86及ARM架构的国产CPU及操作系统部署，支持达梦、人大金仓等国产信创数据源
 * 【过程观测】支持单步调试，可监测每一个环节的任务执行情况，了解数据处理过程，核查计算结果和数据质量
 * 【性能高效】支持跨数据源单表、多表、多表关联、整库数据采集和数据分析，可利用集群能力处理百亿级数据
 * 【易于扩展】基于Stark规则引擎界面化封装，可在极短时间实现整套数据采集、数据建模和数据分析等中台产品
@@ -60,37 +60,35 @@
   "source": [
     {
       "identifier": "ss001",
-      "name": "用户基本信息表(存量数据)",
-      "type": "ORACLE",
-      "dataset": "users_basic",
-      "mode": "BATCH",
-      "connection": {
-        "url": "jdbc:oracle:thin:@//127.0.0.1:1521/XE",
-        "driver": "oracle.jdbc.OracleDriver",
-        "user": "system",
-        "password": "system"
-      }
-    },
-    {
-      "identifier": "ss002",
-      "name": "用户详细信息表(实时更新)",
+      "name": "用户基础信息表(存量数据)",
       "type": "MYSQL",
-      "dataset": "users_detail",
-      "mode": "STREAM",
+      "mode": "BATCH",
       "connection": {
         "url": "jdbc:mysql://127.0.0.1:3306/test",
         "driver": "com.mysql.cj.jdbc.Driver",
         "user": "root",
-        "password": "root"
+        "password": "root",
+        "dataset": "users"
+      }
+    },
+    {
+      "identifier": "ss002",
+      "name": "用户详细信息表(存量数据)",
+      "type": "HIVE",
+      "mode": "BATCH",
+      "connection": {
+        "thrift": "thrift://127.0.0.1:9083",
+        "database": "test",
+        "dataset": "users"
       }
     },
     {
       "identifier": "ss003",
-      "name": "用户维度信息表(存量数据)",
+      "name": "用户维度信息表(实时更新)",
       "type": "CSV",
-      "mode": "BATCH",
+      "mode": "STREAM",
       "connection": {
-        "url": "hdfs://cluster/stark/users.csv"
+        "url": "hdfs://cluster/test/"
       }
     }
   ],
@@ -98,173 +96,338 @@
     {
       "identifier": "tf001",
       "name": "根据CSV中的用户维度信息，对用户基本信息和详细信息进行关联合并",
-      "source": ["ss001", "ss002", "ss003"],
+      "source": [
+        "ss001",
+        "ss002",
+        "ss003"
+      ],
       "sql": "select ss001.*, ss002.detail as detail from ss001 inner join ss002 on ss001.id = ss002.id inner join ss003 on ss001.id = ss003.id",
-      "transout": ["ts001"]
+      "transout": [
+        "ts001"
+      ]
     }
   ],
   "transout": [
     {
       "identifier": "ts001",
-      "transform": ["tf001"],
-      "sink": ["sk001","sk002","sk003","sk004","sk005","sk006","sk007","sk008","sk009","sk010","sk011","sk012","sk013"]
+      "transform": [
+        "tf001"
+      ],
+      "sink": [
+        "sk_jdbc_mysql",
+        "sk_jdbc_mariadb",
+        "sk_jdbc_oracle",
+        "sk_jdbc_postgresql",
+        "sk_jdbc_sqlserver",
+        "sk_jdbc_db2",
+        "sk_jdbc_hive",
+        "sk_jdbc_doris",
+        "sk_jdbc_starrocks",
+        "sk_jdbc_phoenix",
+        "sk_jdbc_dameng",
+        "sk_jdbc_kingbase",
+        "sk_file_excel",
+        "sk_file_json",
+        "sk_file_text",
+        "sk_file_csv",
+        "sk_file_orc",
+        "sk_file_parquet",
+        "sk_file_xml",
+        "sk_hive",
+        "sk_kafka",
+        "sk_hbase",
+        "sk_mongodb",
+        "sk_elasticsearch"
+      ]
     }
   ],
   "sink": [
     {
-      "identifier": "sk001",
+      "identifier": "sk_jdbc_mysql",
       "name": "通过JDBC协议输出到MYSQL(实时更新)",
       "type": "MYSQL",
-      "dataset": "users_basic_detail",
       "mode": "APPEND",
       "connection": {
         "url": "jdbc:mysql://127.0.0.1:3306/stark",
         "driver": "com.mysql.cj.jdbc.Driver",
         "user": "stark",
-        "password": "stark"
+        "password": "stark",
+        "dataset": "users"
       }
     },
     {
-      "identifier": "sk002",
+      "identifier": "sk_jdbc_mariadb",
+      "name": "通过JDBC协议输出到MariaDB(实时更新)",
+      "type": "MARIADB",
+      "mode": "APPEND",
+      "connection": {
+        "url": "jdbc:mariadb://127.0.0.1:3306/stark",
+        "driver": "org.mariadb.jdbc.Driver",
+        "user": "stark",
+        "password": "stark",
+        "dataset": "users"
+      }
+    },
+    {
+      "identifier": "sk_jdbc_oracle",
       "name": "通过JDBC协议输出到ORACLE(实时更新)",
       "type": "ORACLE",
-      "dataset": "users_basic_detail",
       "mode": "APPEND",
       "connection": {
         "url": "jdbc:oracle:thin:@127.0.0.1:1521:XE",
         "driver": "oracle.jdbc.OracleDriver",
         "user": "stark",
-        "password": "stark"
+        "password": "stark",
+        "dataset": "users"
       }
     },
     {
-      "identifier": "sk003",
+      "identifier": "sk_jdbc_postgresql",
       "name": "通过JDBC协议输出到POSTGRESQL(实时更新)",
       "type": "POSTGRESQL",
-      "dataset": "users_basic_detail",
       "mode": "APPEND",
       "connection": {
         "url": "jdbc:postgresql://127.0.0.1:5432/stark",
         "driver": "org.postgresql.Driver",
         "user": "stark",
-        "password": "stark"
+        "password": "stark",
+        "dataset": "users"
       }
     },
     {
-      "identifier": "sk004",
-      "name": "通过JDBC协议输出到DB2(实时更新)",
-      "type": "DB2",
-      "dataset": "users_basic_detail",
-      "mode": "APPEND",
-      "connection": {
-        "url": "jdbc:db2://127.0.0.1:50000/stark",
-        "driver": "com.ibm.db2.jcc.DB2Driver",
-        "user": "stark",
-        "password": "stark"
-      }
-    },
-    {
-      "identifier": "sk005",
-      "name": "通过ThriftServer协议输出到HIVE(实时更新)",
-      "type": "HIVE",
-      "dataset": "users_basic_detail",
-      "mode": "APPEND",
-      "connection": {
-        "thrift": "thrift://127.0.0.1:9083",
-        "database": "stark"
-      }
-    },
-    {
-      "identifier": "sk006",
-      "name": "通过JDBC协议输出到HIVE(实时更新)",
-      "type": "HIVEJDBC",
-      "dataset": "users_basic_detail",
-      "mode": "APPEND",
-      "connection": {
-        "url": "jdbc:hive2://127.0.0.1:10000/stark",
-        "driver": "org.apache.hive.jdbc.HiveDriver",
-        "user": "stark"
-      }
-    },
-    {
-      "identifier": "sk007",
+      "identifier": "sk_jdbc_sqlserver",
       "name": "通过JDBC协议输出到SQLSERVER(实时更新)",
       "type": "SQLSERVER",
-      "schema": "stark",
-      "dataset": "users_basic_detail",
       "mode": "APPEND",
       "connection": {
         "url": "jdbc:sqlserver://;serverName=127.0.0.1;port=1433;databaseName=stark",
         "driver": "com.microsoft.sqlserver.jdbc.SQLServerDriver",
         "user": "sa",
-        "password": "password"
+        "password": "password",
+        "schema": "stark",
+        "dataset": "users"
       }
     },
     {
-      "identifier": "sk008",
+      "identifier": "sk_jdbc_db2",
+      "name": "通过JDBC协议输出到DB2(实时更新)",
+      "type": "DB2",
+      "mode": "APPEND",
+      "connection": {
+        "url": "jdbc:db2://127.0.0.1:50000/stark",
+        "driver": "com.ibm.db2.jcc.DB2Driver",
+        "user": "stark",
+        "password": "stark",
+        "dataset": "users"
+      }
+    },
+    {
+      "identifier": "sk_jdbc_hive",
+      "name": "通过JDBC协议输出到HIVE(实时更新)",
+      "type": "HIVEJDBC",
+      "mode": "APPEND",
+      "connection": {
+        "url": "jdbc:hive2://127.0.0.1:10000/stark",
+        "driver": "org.apache.hive.jdbc.HiveDriver",
+        "user": "stark",
+        "dataset": "users"
+      }
+    },
+    {
+      "identifier": "sk_jdbc_doris",
+      "name": "通过JDBC协议输出到DORIS(实时更新)",
+      "type": "DORIS",
+      "mode": "APPEND",
+      "connection": {
+        "url": "jdbc:mysql://127.0.0.1:3306/stark",
+        "driver": "com.mysql.cj.jdbc.Driver",
+        "user": "stark",
+        "password": "stark",
+        "dataset": "users"
+      }
+    },
+    {
+      "identifier": "sk_jdbc_starrocks",
+      "name": "通过JDBC协议输出到STARROCKS(实时更新)",
+      "type": "STARROCKS",
+      "mode": "APPEND",
+      "connection": {
+        "url": "jdbc:mysql://127.0.0.1:3306/stark",
+        "driver": "com.mysql.cj.jdbc.Driver",
+        "user": "stark",
+        "password": "stark",
+        "dataset": "users"
+      }
+    },
+    {
+      "identifier": "sk_jdbc_phoenix",
+      "name": "通过JDBC协议输出到PHOENIX(实时更新)",
+      "type": "PHOENIX",
+      "mode": "APPEND",
+      "connection": {
+        "url": "jdbc:phoenix:node01,node02,node03:2181",
+        "driver": "org.apache.phoenix.jdbc.PhoenixDriver",
+        "schema": "STARK",
+        "dataset": "users"
+      }
+    },
+    {
+      "identifier": "sk_jdbc_dameng",
+      "name": "通过JDBC协议输出到DAMENG(实时更新)",
+      "type": "DAMENG",
+      "mode": "APPEND",
+      "connection": {
+        "url": "jdbc:dm://127.0.0.1:5236/STARK",
+        "driver": "dm.jdbc.driver.DmDriver",
+        "user": "STARK",
+        "password": "STARK",
+        "dataset": "users"
+      }
+    },
+    {
+      "identifier": "sk_jdbc_kingbase",
+      "name": "通过JDBC协议输出到KINGBASE(实时更新)",
+      "type": "KINGBASE",
+      "mode": "APPEND",
+      "connection": {
+        "url": "jdbc:kingbase8://127.0.0.1:54321/stark",
+        "driver": "com.kingbase8.Driver",
+        "user": "kingbase",
+        "password": "kingbase",
+        "dataset": "users"
+      }
+    },
+    {
+      "identifier": "sk_file_excel",
       "name": "输出到EXCEL文件(实时更新)",
       "type": "EXCEL",
       "mode": "APPEND",
       "connection": {
-        "url": "hdfs://cluster/stark/users_basic_detail.xlsx"
+        "url": "hdfs://cluster/stark/users.xlsx"
       }
     },
     {
-      "identifier": "sk009",
+      "identifier": "sk_file_json",
       "name": "输出到JSON文件(实时更新)",
       "type": "JSON",
       "mode": "APPEND",
       "connection": {
-        "url": "hdfs://cluster/stark/users_basic_detail.json"
+        "url": "hdfs://cluster/stark/users.json"
       }
     },
     {
-      "identifier": "sk010",
+      "identifier": "sk_file_text",
       "name": "输出到TXT文件(实时更新)",
       "type": "TEXT",
       "mode": "APPEND",
       "connection": {
-        "url": "hdfs://cluster/stark/users_basic_detail.txt"
+        "url": "hdfs://cluster/stark/users.txt"
       }
     },
     {
-      "identifier": "sk011",
+      "identifier": "sk_file_csv",
       "name": "输出到CSV文件(实时更新)",
       "type": "CSV",
       "mode": "APPEND",
       "connection": {
-        "url": "hdfs://cluster/stark/users_basic_detail.csv"
+        "url": "hdfs://cluster/stark/users.csv"
       }
     },
     {
-      "identifier": "sk012",
+      "identifier": "sk_file_orc",
       "name": "输出到ORC文件(实时更新)",
       "type": "ORC",
       "mode": "APPEND",
       "connection": {
-        "url": "hdfs://cluster/stark/users_basic_detail.orc"
+        "url": "hdfs://cluster/stark/users.orc"
       }
     },
     {
-      "identifier": "sk013",
+      "identifier": "sk_file_parquet",
       "name": "输出到PARQUET文件(实时更新)",
       "type": "PARQUET",
       "mode": "APPEND",
       "connection": {
-        "url": "hdfs://cluster/stark/users_basic_detail.parquet"
+        "url": "hdfs://cluster/stark/users.parquet"
+      }
+    },
+    {
+      "identifier": "sk_file_xml",
+      "name": "输出到XML文件(实时更新)",
+      "type": "XML",
+      "mode": "APPEND",
+      "connection": {
+        "url": "hdfs://cluster/stark/users.xml"
+      }
+    },
+    {
+      "identifier": "sk_hive",
+      "name": "通过ThriftServer协议输出到HIVE(实时更新)",
+      "type": "HIVE",
+      "mode": "APPEND",
+      "connection": {
+        "thrift": "thrift://127.0.0.1:9083",
+        "database": "stark",
+        "dataset": "users"
+      }
+    },
+    {
+      "identifier": "sk_kafka",
+      "name": "输出到Kafka消息队列(实时更新)",
+      "type": "KAFKA",
+      "mode": "APPEND",
+      "connection": {
+        "kafka.bootstrap.servers": "node01:9092,node02:9092,node03:9092",
+        "topic": "users"
+      }
+    },
+    {
+      "identifier": "sk_hbase",
+      "name": "输出到HBase列存数据库(实时更新)",
+      "type": "HBASE",
+      "mode": "APPEND",
+      "connection": {
+        "hbase.zookeeper.quorum": "node01,node02,node03",
+        "hbase.zookeeper.property.clientPort": "2181",
+        "dataset": "stark:users",
+        "primaryKey": "id"
+      }
+    },
+    {
+      "identifier": "sk_mongodb",
+      "name": "输出到MongoDB文档数据库(实时更新)",
+      "type": "MONGODB",
+      "mode": "APPEND",
+      "connection": {
+        "url": "mongodb://127.0.0.1:27017",
+        "database": "stark",
+        "dataset": "users"
+      }
+    },
+    {
+      "identifier": "sk_elasticsearch",
+      "name": "输出到ElasticSearch全文检索数据库(实时更新)",
+      "type": "ELASTICSEARCH",
+      "mode": "APPEND",
+      "connection": {
+        "url": "127.0.0.1",
+        "port": "9200",
+        "dataset": "users"
       }
     }
   ]
 }
 ```
 
-## Stark引擎 `[预览版]` 重磅更新！支持[MySQL/Oracle/PostgreSQL/DB2/SQLServer/HiveJDBC]六种数据源
-* 点击下载：[Stark-1.2.0-preview.jar](https://github.com/hexnn/Stark/releases/download/1.2.0-preview/Stark-1.2.0-preview.jar) 
-* 修改 `Stark-1.2.0-preview.jar` 根目录下的 `rule.json` 规则文件，指定 `source` 和 `sink` 中的 `[MySQL/Oracle/PostgreSQL/DB2/SQLServer/HiveJDBC]` 数据源连接信息
-* 上传修改后的 `Stark-1.2.0-preview.jar` 到服务器（需要安装[Spark3.x](https://archive.apache.org/dist/spark/spark-3.3.4/spark-3.3.4-bin-hadoop3.tgz)客户端，配置JAVA_HOME环境变量即可运行）
-* 进入 `$SPARK_HOME/bin` 目录下，执行 `spark-submit --master local[*] Stark-1.2.0-preview.jar` 命令，等待任务执行结束
-* 进入 `[MySQL/Oracle/PostgreSQL/DB2/SQLServer/HiveJDBC]` 数据库，查看 `sink` 节点指定的输出表，验证数据是否采集成功
-> 注意：`[预览版]` 只能使用 `[MySQL/Oracle/PostgreSQL/DB2/SQLServer/HiveJDBC]` 数据源做 `[批处理]` 操作，想要体验Stark引擎完整版功能请联系↓↓↓
+## Stark引擎 `[预览版]` 年度重磅更新！免费使用19种多源异构数据源！
+* 12种JDBC类数据源`[MySQL/MariaDB/Oracle/PostgreSQL/SQLServer/DB2/HiveJDBC/Doris/StarRocks/Phoenix/达梦Dameng/人大金仓Kingbase]`
+* 7种文件类数据源`[Excel/JSON/Text/CSV/ORC/Parquet/XML]` 
+* 点击下载：[Stark-1.3.0-preview.jar](https://github.com/hexnn/Stark/releases/download/1.3.0-preview/Stark-1.3.0-preview.jar) 
+* 修改 `Stark-1.3.0-preview.jar` 根目录下的 `rule.json` 规则文件，指定 `source` 和 `sink` 中的数据源连接信息
+* 上传修改后的 `Stark-1.3.0-preview.jar` 到服务器（需要安装[Spark3.x](https://archive.apache.org/dist/spark/spark-3.3.4/spark-3.3.4-bin-hadoop3.tgz)客户端，配置JAVA_HOME环境变量即可运行）
+* 进入 `$SPARK_HOME/bin` 目录下，执行 `spark-submit --master local[*] Stark-1.3.0-preview.jar` 命令，等待任务执行结束
+* 查看 `sink` 节点指定的数据连接及输出，验证数据是否写入成功
+> 注意：`[预览版]` 只能使用 `[12种JDBC类数据源]以及[7种文件类数据源]` 做 `[批处理]` 操作，想要体验Stark引擎完整版功能请联系↓↓↓
 
 ## 完整版免费试用及定制化开发
 * 通过以下方式了解更多关于Stark引擎的相关信息，可试用完整版功能，也可接受业务定制化开发需求↓↓↓
