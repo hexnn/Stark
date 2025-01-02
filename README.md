@@ -387,9 +387,10 @@
       "type": "HBASE",
       "mode": "APPEND",
       "connection": {
-        "hbase.zookeeper.quorum": "node01,node02,node03",
-        "hbase.zookeeper.property.clientPort": "2181",
-        "dataset": "stark:users",
+        "url": "node01,node02,node03",
+        "port": "2181",
+        "schema": "stark",
+        "dataset": "users",
         "primaryKey": "id"
       }
     },
