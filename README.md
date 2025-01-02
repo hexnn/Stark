@@ -77,7 +77,7 @@
       "type": "HIVE",
       "mode": "BATCH",
       "connection": {
-        "thrift": "thrift://127.0.0.1:9083",
+        "url": "thrift://127.0.0.1:9083",
         "database": "test",
         "dataset": "users"
       }
@@ -366,7 +366,7 @@
       "type": "HIVE",
       "mode": "APPEND",
       "connection": {
-        "thrift": "thrift://127.0.0.1:9083",
+        "url": "thrift://127.0.0.1:9083",
         "database": "stark",
         "dataset": "users"
       }
