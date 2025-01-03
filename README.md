@@ -420,7 +420,7 @@
 }
 ```
 
-## Stark引擎 `[预览版]` 年度重磅更新！免费使用19种多源异构数据源！
+## Stark引擎 `[预览版]` 年度重磅更新！免费使用19种异构数据源（含达梦、人大金仓）
 * 12种JDBC类数据源`[MySQL/MariaDB/Oracle/PostgreSQL/SQLServer/DB2/HiveJDBC/Doris/StarRocks/Phoenix/达梦Dameng/人大金仓Kingbase]`
 * 7种文件类数据源`[Excel/JSON/Text/CSV/ORC/Parquet/XML]` 
 * 点击下载：[Stark-1.3.0-preview.jar](https://github.com/hexnn/Stark/releases/download/1.3.0-preview/Stark-1.3.0-preview.jar) 
