@@ -49,8 +49,10 @@
 |学习方式     |任务类型     |算法名称                  |算法简称     |算法描述        |算法阶段        |
 |:----------:|:-----------:|:-----------------------:|:----------:|:---------------|:--------------|
 |有监督学习   |推荐算法      |AlternatingLeastSquares  |ALS         |交替最小二乘法   |训练,预测,推荐  |
-|            |分类算法      |DecisionTreeClassifier   |DTC         |分类决策树       |训练,预测      |
-|            |回归算法      |DecisionTreeRegressor    |DTR         |回归决策树       |训练,预测      |
+|            |分类算法      |DecisionTreeClassifier   |DTC         |决策树分类       |训练,预测      |
+|            |             |RandomForestClassifier   |RFC         |随机森林分类      |训练,预测      |
+|            |回归算法      |DecisionTreeRegressor    |DTR         |决策树回归       |训练,预测      |
+|            |             |RandomForestRegressor    |RFR         |随机森林回归      |训练,预测      |
 
 ## 规则文件样例（开箱即用，批流一体，跨数据源多表关联）
 ```
