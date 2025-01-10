@@ -46,16 +46,21 @@
 |             |人大金仓     |√         |√         |√         |√         |增,删,改 |增,删,改|
 
 ## 机器学习特性（持续更新）
-|学习方式     |任务类型     |算法名称                  |算法简称     |算法描述           |算法阶段        |
-|:----------:|:-----------:|:-----------------------:|:----------:|:------------------|:--------------|
-|有监督学习   |推荐算法      |AlternatingLeastSquares  |ALS         |交替最小二乘法      |训练,预测,推荐  |
-|            |分类算法      |DecisionTreeClassifier   |DTC         |决策树分类          |训练,评估,预测  |
-|            |             |RandomForestClassifier   |RFC         |随机森林分类        |训练,评估,预测  |
-|            |回归算法      |DecisionTreeRegressor    |DTR         |决策树回归          |训练,评估,预测  |
-|            |             |RandomForestRegressor    |RFR         |随机森林回归        |训练,评估,预测  |
-|无监督学习   |聚类算法      |KMeans                   |KMEANS      |K均值聚类          |迭代,评估,聚类  |
-|            |             |GaussianMixture          |GM          |高斯混合模型        |迭代,评估,聚类  |
-|            |             |LDA                      |LDA         |潜在狄利克雷分配模型 |迭代,评估,聚类  |
+|学习方式     |任务类型     |算法名称                        |算法简称     |算法描述             |算法阶段        |
+|:----------:|:-----------:|:------------------------------:|:----------:|:-------------------|:--------------|
+|有监督学习   |推荐算法      |AlternatingLeastSquares        |ALS         |交替最小二乘法        |训练,预测,推荐  |
+|            |分类算法      |DecisionTreeClassifier         |DTC         |决策树分类算法        |训练,评估,预测  |
+|            |             |RandomForestClassifier         |RFC         |随机森林分类算法      |训练,评估,预测  |
+|            |             |LogisticRegression             |LRC         |逻辑回归算法          |训练,评估,预测  |
+|            |             |NaiveBayes                     |NBC         |朴素贝叶斯分类算法    |训练,评估,预测  |
+|            |             |GBTClassifier                  |GBTC        |梯度提升树分类算法    |训练,评估,预测  |
+|            |             |MultilayerPerceptronClassifier |MLPC        |多层感知器分类算法    |训练,评估,预测  |
+|            |回归算法      |DecisionTreeRegressor          |DTR         |决策树回归算法        |训练,评估,预测  |
+|            |             |RandomForestRegressor          |RFR         |随机森林回归算法      |训练,评估,预测  |
+|            |             |GBTRegressor                   |GBTR        |梯度提升树回归算法    |训练,评估,预测  |
+|无监督学习   |聚类算法      |KMeans                         |KMEANS      |K均值聚类算法        |迭代,评估,聚类  |
+|            |             |GaussianMixture                |GM          |高斯混合模型算法      |迭代,评估,聚类  |
+|            |             |LDA                            |LDA         |潜在狄利克雷分配算法  |迭代,评估,聚类  |
 
 
 ## 规则文件样例（开箱即用，批流一体，跨数据源多表关联）
