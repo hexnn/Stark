@@ -46,23 +46,23 @@
 |             |人大金仓     |√         |√         |√         |√         |增,删,改 |增,删,改|
 
 ## 机器学习特性（持续更新）
-|学习方式     |算法类型     |算法名称                        |算法简称     |算法描述             |应用场景       |
-|:----------:|:-----------:|:------------------------------:|:----------:|:-------------------|:-------------|
-|有监督学习   |推荐算法      |AlternatingLeastSquares        |ALS         |交替最小二乘法        |数据推荐       |     
-|            |分类算法      |DecisionTreeClassifier         |DTC         |决策树分类算法        |二分类,多分类  |
-|            |             |FMClassifier                   |FMC         |因子分解机分类算法     |二分类        |
-|            |             |GBTClassifier                  |GBTC        |梯度提升树分类算法     |二分类,多分类 |
-|            |             |LogisticRegression             |LRC         |逻辑回归算法          |二分类        |
-|            |             |MultilayerPerceptronClassifier |MLPC        |多层感知器分类算法    |二分类,多分类  |
-|            |             |NaiveBayes                     |NBC         |朴素贝叶斯分类算法    |二分类,多分类  |
-|            |             |RandomForestClassifier         |RFC         |随机森林分类算法      |二分类,多分类  |
-|            |             |LinearSVC                      |SVC         |线性SVM分类算法       |二分类        |
-|            |回归算法      |DecisionTreeRegressor          |DTR         |决策树回归算法        |数据预测      |
-|            |             |GBTRegressor                   |GBTR        |梯度提升树回归算法    |数据预测       |
-|            |             |RandomForestRegressor          |RFR         |随机森林回归算法      |数据预测       |
-|无监督学习   |聚类算法      |KMeans                         |KMEANS      |K均值聚类算法        |聚类          |
-|            |             |GaussianMixture                |GM          |高斯混合模型算法      |聚类          |
-|            |             |LDA                            |LDA         |潜在狄利克雷分配算法  |聚类          |
+|学习方式     |算法类型     |算法名称                        |算法简称     |算法描述         |应用场景       |
+|:----------:|:-----------:|:------------------------------:|:----------:|:---------------|:-------------|
+|有监督学习   |推荐算法      |AlternatingLeastSquares        |ALS         |交替最小二乘法    |数据推荐       |     
+|            |分类算法      |DecisionTreeClassifier         |DTC         |决策树分类        |二分类,多分类  |
+|            |             |FMClassifier                   |FMC         |因子分解机分类     |二分类        |
+|            |             |GBTClassifier                  |GBTC        |梯度提升树分类     |二分类,多分类 |
+|            |             |LogisticRegression             |LRC         |逻辑回归分类       |二分类        |
+|            |             |MultilayerPerceptronClassifier |MLPC        |多层感知器分类     |二分类,多分类  |
+|            |             |NaiveBayes                     |NBC         |朴素贝叶斯分类     |二分类,多分类  |
+|            |             |RandomForestClassifier         |RFC         |随机森林分类      |二分类,多分类  |
+|            |             |LinearSVC                      |SVC         |线性SVM分类       |二分类        |
+|            |回归算法      |DecisionTreeRegressor          |DTR         |决策树回归        |数据预测      |
+|            |             |GBTRegressor                   |GBTR        |梯度提升树回归    |数据预测       |
+|            |             |RandomForestRegressor          |RFR         |随机森林回归      |数据预测       |
+|无监督学习   |聚类算法      |KMeans                         |KMEANS      |K均值聚类        |聚类          |
+|            |             |GaussianMixture                |GM          |高斯混合模型      |聚类          |
+|            |             |LDA                            |LDA         |潜在狄利克雷分配  |聚类          |
 
 ## 规则文件样例（开箱即用，批流一体，跨数据源多表关联）
 ```
