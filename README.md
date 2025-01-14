@@ -51,7 +51,7 @@
 |有监督学习   |推荐算法      |AlternatingLeastSquares        |ALS         |交替最小二乘法    |数据推荐       |     
 |            |分类算法      |DecisionTreeClassifier         |DTC         |决策树分类        |二分类,多分类  |
 |            |             |FMClassifier                   |FMC         |因子分解机分类     |二分类        |
-|            |             |GBTClassifier                  |GBTC        |梯度提升树分类     |二分类,多分类 |
+|            |             |GBTClassifier                  |GBTC        |梯度提升树分类     |二分类        |
 |            |             |LogisticRegression             |LRC         |逻辑回归分类       |二分类        |
 |            |             |MultilayerPerceptronClassifier |MLPC        |多层感知器分类     |二分类,多分类  |
 |            |             |NaiveBayes                     |NBC         |朴素贝叶斯分类     |二分类,多分类  |
