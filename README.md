@@ -73,12 +73,12 @@
 ```
 {
   "env": {
-    "param": "hdfs://cluster/starks/params/test.json",
+    "param": "hdfs://cluster/stark/params/test.json",
     "udf": [
       {
         "name": "maps",
         "class": "cn.hex.bricks.udf.Maps",
-        "jar": "hdfs://cluster/starks/udf/bricks.jar",
+        "jar": "hdfs://cluster/stark/udf/bricks.jar",
         "temporary": "true"
       }
     ]
