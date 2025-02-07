@@ -69,7 +69,7 @@
 |            |             |GaussianMixture                |GM          |高斯混合模型        |聚类          |
 |            |             |LDA                            |LDA         |潜在狄利克雷分配    |聚类          |
 
-## 规则文件样例（开箱即用，批流一体，支持跨数据源多表关联，机器学习）
+## 规则文件样例（开箱即用，批流一体，支持跨数据源多表关联）
 ```
 {
   "env": {
@@ -86,7 +86,7 @@
   "source": [
     {
       "identifier": "ss001",
-      "name": "用户基础信息表(存量数据)",
+      "name": "用户基础信息表(MYSQL存量数据)",
       "type": "MYSQL",
       "mode": "BATCH",
       "connection": {
@@ -99,7 +99,7 @@
     },
     {
       "identifier": "ss002",
-      "name": "用户详细信息表(存量数据)",
+      "name": "用户详细信息表(HIVE存量数据)",
       "type": "HIVE",
       "mode": "BATCH",
       "connection": {
@@ -110,7 +110,7 @@
     },
     {
       "identifier": "ss003",
-      "name": "用户维度信息表(实时更新)",
+      "name": "用户维度信息表(CSV实时数据)",
       "type": "CSV",
       "mode": "STREAM",
       "connection": {
@@ -121,7 +121,7 @@
   "transform": [
     {
       "identifier": "tf001",
-      "name": "根据CSV中的用户维度信息，对用户基本信息和详细信息进行关联合并",
+      "name": "根据CSV中的用户维度实时数据，对用户基本信息和详细信息进行关联合并",
       "source": [
         "ss001",
         "ss002",
@@ -183,7 +183,7 @@
     },
     {
       "identifier": "sk_jdbc_mariadb",
-      "name": "通过JDBC协议输出到MariaDB(实时更新)",
+      "name": "通过JDBC协议输出到MARIADB(实时更新)",
       "type": "MARIADB",
       "mode": "APPEND",
       "connection": {
@@ -440,6 +440,108 @@
         "url": "127.0.0.1",
         "port": "9200",
         "dataset": "users"
+      }
+    }
+  ]
+}
+```
+
+## 规则文件样例（机器学习，支持流式数据增量预测）
+```
+{
+  "env": {},
+  "source": [
+    {
+      "identifier": "user_movie_training",
+      "name": "用户对电影类型的偏好记录",
+      "type": "JSON",
+      "mode": "BATCH",
+      "connection": {
+        "url": "hdfs://cluster/stark/ml/data/user_movie_training.json"
+      },
+      "options": {
+        "multiLine": "true"
+      }
+    },
+    {
+      "identifier": "user_movie_prediction",
+      "name": "用户电影类型偏好预测",
+      "type": "JSON",
+      "mode": "STREAM",
+      "connection": {
+        "url": "hdfs://cluster/stark/ml/data/user_movie_prediction"
+      },
+      "options": {
+        "multiLine": "true"
+      }
+    }
+  ],
+  "transform": [
+    {
+      "identifier": "tf001",
+      "name": "对用户电影类型偏好记录进行分类模型训练，用于根据用户预测偏好的电影类型",
+      "source": [
+        "user_movie_training"
+      ],
+      "ml": {
+        "training": {
+          "type": "GBTC",
+          "path": "hdfs://cluster/stark/ml/gbtc",
+          "params": {
+            "labelCol": "preference"
+          }
+        }
+      },
+      "transout": [
+        "ts001"
+      ]
+    },
+    {
+      "identifier": "tf002",
+      "name": "根据用户和电影类型推荐记录，预测对该电影类型的偏好程度",
+      "source": [
+        "user_movie_prediction"
+      ],
+      "ml": {
+        "prediction": {
+          "type": "GBTC",
+          "path": "hdfs://cluster/stark/ml/gbtc"
+        }
+      },
+      "transout": [
+        "ts002"
+      ]
+    }
+  ],
+  "transout": [
+    {
+      "identifier": "ts001",
+      "transform": [
+        "tf001"
+      ]
+    },
+    {
+      "identifier": "ts002",
+      "transform": [
+        "tf002"
+      ],
+      "sink": [
+        "sk_gbtc_prediction"
+      ]
+    }
+  ],
+  "sink": [
+    {
+      "identifier": "sk_gbtc_prediction",
+      "name": "输出根据用户和电影类型预测的偏好结果",
+      "type": "MYSQL",
+      "mode": "APPEND",
+      "connection": {
+        "url": "jdbc:mysql://127.0.0.1:3306/stark",
+        "driver": "com.mysql.cj.jdbc.Driver",
+        "user": "stark",
+        "password": "stark",
+        "dataset": "sk_gbtc_prediction"
       }
     }
   ]
