@@ -548,15 +548,16 @@
 }
 ```
 
-## Stark引擎 `[预览版]` 年度重磅更新！免费使用19种异构数据源（含达梦、人大金仓）
+## Stark引擎 `[预览版]` 史诗级更新！免费使用19种多源异构数据源，与多达20种机器学习算法无缝融合！
 * 12种JDBC类数据源`[MySQL/MariaDB/Oracle/PostgreSQL/SQLServer/DB2/HiveJDBC/Doris/StarRocks/Phoenix/达梦Dameng/人大金仓Kingbase]`
 * 7种文件类数据源`[Excel/JSON/Text/CSV/ORC/Parquet/XML]` 
-* 点击下载：[Stark-1.3.0-preview.jar](https://github.com/hexnn/Stark/releases/download/1.3.0-preview/Stark-1.3.0-preview.jar) 
-* 修改 `Stark-1.3.0-preview.jar` 根目录下的 `rule.json` 规则文件，指定 `source` 和 `sink` 中的数据源连接信息
-* 上传修改后的 `Stark-1.3.0-preview.jar` 到服务器（需要安装[Spark3.x](https://archive.apache.org/dist/spark/spark-3.3.4/spark-3.3.4-bin-hadoop3.tgz)客户端，配置JAVA_HOME环境变量即可运行）
-* 进入 `$SPARK_HOME/bin` 目录下，执行 `spark-submit --master local[*] Stark-1.3.0-preview.jar` 命令，等待任务执行结束
+* 20种机器学习算法`[8种分类算法/8种回归算法/3种聚类算法/1种推荐算法]` 
+* 点击下载：[Stark-1.4.0-preview.jar](https://github.com/hexnn/Stark/releases/download/1.4.0-preview/Stark-1.4.0-preview.jar) 
+* 修改 `Stark-1.4.0-preview.jar` 根目录下的 `rule.json` 规则文件，指定 `source` 和 `sink` 中的数据源连接信息
+* 上传修改后的 `Stark-1.4.0-preview.jar` 到服务器（需要安装[Spark3.x](https://archive.apache.org/dist/spark/spark-3.3.4/spark-3.3.4-bin-hadoop3.tgz)客户端，配置JAVA_HOME环境变量即可运行）
+* 进入 `$SPARK_HOME/bin` 目录下，执行 `spark-submit --master local[*] Stark-1.4.0-preview.jar` 命令，等待任务执行结束
 * 查看 `sink` 节点指定的数据连接及输出，验证数据是否写入成功
-> 注意：`[预览版]` 只能使用 `[12种JDBC类数据源]以及[7种文件类数据源]` 做 `[批处理]` 操作，想要体验Stark引擎完整版功能请联系↓↓↓
+> 注意：`[预览版]` 只能使用以上 `[19种多源异构数据源]` 以及 `[20种机器学习算法]` 做 `[批处理]` 操作，想要体验Stark引擎完整版功能请联系↓↓↓
 
 ## 完整版免费试用及定制化开发
 * 通过以下方式了解更多关于Stark引擎的相关信息，可试用完整版功能，也可接受业务定制化开发需求↓↓↓
