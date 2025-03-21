@@ -551,18 +551,51 @@
 }
 ```
 
-## Stark引擎 `[预览版]` 史诗级更新！免费使用19种多源异构数据源，与多达20种机器学习算法无缝融合！
-* 12种JDBC类数据源`[MySQL/MariaDB/Oracle/PostgreSQL/SQLServer/DB2/HiveJDBC/Doris/StarRocks/Phoenix/达梦Dameng/人大金仓Kingbase]`
-* 7种文件类数据源`[Excel/JSON/Text/CSV/ORC/Parquet/XML]` 
-* 20种机器学习算法`[8种分类算法/8种回归算法/3种聚类算法/1种推荐算法]` 
-* 点击下载：[Stark-1.4.0-preview.jar](https://github.com/hexnn/Stark/releases/download/1.4.0-preview/Stark-1.4.0-preview.jar) 
-* 修改 `Stark-1.4.0-preview.jar` 根目录下的 `rule.json` 规则文件，指定 `source` 和 `sink` 中的数据源连接信息
-* 上传修改后的 `Stark-1.4.0-preview.jar` 到服务器（需要安装[Spark3.x](https://archive.apache.org/dist/spark/spark-3.3.4/spark-3.3.4-bin-hadoop3.tgz)客户端，配置JAVA_HOME环境变量即可运行）
-* 进入 `$SPARK_HOME/bin` 目录下，执行 `spark-submit --master local[*] Stark-1.4.0-preview.jar` 命令，等待任务执行结束
-* 查看 `sink` 节点指定的数据连接及输出，验证数据是否写入成功
-> 注意：`[预览版]` 只能使用以上 `[19种多源异构数据源]` 以及 `[20种机器学习算法]` 做 `[批处理]` 操作，想要体验Stark引擎完整版功能请联系↓↓↓
+## Stark大数据治理引擎 `[正式版]` 重磅发布！基于二进制安装包，无需任何配置，解压即用！
+* 全量功能免费开放，支持批流一体数据采集、CDC变化数据捕获、数据建模、机器学习算法建模和多维数据分析
+* 零编码，零技术门槛，仅需配置规则文件即可完成一站式的大数据治理任务，人人都可以成为大数据专家
+* 自带集群内核，支持本地模式、集群模式提交任务，集群节点支持动态扩展，可满足百亿级的多源异构数据处理需求
+* 支持30+数据源，涵盖关系型数据库、NoSQL数据库、MPP数据库、消息中间件、图数据库、空间数据库、时序库、分布式文件等
+* 支持20+机器学习算法，包括分类算法、回归算法、聚类算法和推荐算法等，未来还会融入深度学习及自然语言处理算法等
+* 点击下载：[stark-2.0.0.tgz](https://github.com/hexnn/Stark/releases/download/2.0.0/stark-2.0.0.tgz)
+* 上传到服务器，执行 `tar -zxvf stark-2.0.0.tgz` 命令解压完成安装，解压后的目录结构及说明如下
+```
+stark-2.0.0
+  /bin            # 命令行工具，Stark引擎启动入口
+  /conf           # 引擎配置文件
+  /connect        # CDC数据采集插件
+  /data           # 样例数据，包括机器学习训练及预测样本等
+  /examples       # 规则文件示例，涵盖离线、实时、批流一体、机器学习规则示例
+  /jars           # 依赖包
+  /kafka-logs     # kafka数据目录
+  /logs           # 引擎执行日志
+  /rule           # 规则文件目录
+  /sbin           # 管理工具，Stark集群管理命令
+  /stark-events   # 任务执行日志
+  /zkdata         # zookeeper数据目录
+```
+* 修改 `rule/rule.json` 规则文件，指定 `source` 和 `sink` 中的数据源连接信息，执行 `bin/stark-run` 命令启动任务
+* 支持多种任务提交方式，可按照实际需求自由选择，以下为 `stark-run` 命令行示例
+```
+Examples:
+  1.以默认配置文件和规则文件运行
+  $ stark-run
 
-## 完整版免费试用及定制化开发
-* 通过以下方式了解更多关于Stark引擎的相关信息，可试用完整版功能，也可接受业务定制化开发需求↓↓↓
+  2.自定义规则文件
+  $ stark-run --rule ../rule/rule.json
+
+  3.自定义配置文件和规则文件
+  $ stark-run --config ../conf/stark.properties --rule ../rule/rule.json
+
+  4.提交任务到SPARK独立集群
+  $ stark-run --master spark://host:port --deploy-mode cluster
+
+  5.提交任务到YARN集群
+  $ stark-run --master yarn --deploy-mode cluster --queue default
+```
+* 任务执行结束后，查看 `sink` 节点指定的数据连接及输出，验证数据是否写入成功
+
+## 联系方式
+* 通过以下方式了解更多关于Stark大数据治理引擎的相关信息，也可接受各种定制化开发需求↓↓↓
 * WeChat：xxx-hx-xxx（潇湘夜雨）
 * Email：hexing_xx@163.com
