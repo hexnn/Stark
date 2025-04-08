@@ -582,48 +582,53 @@
         "checkAccuracy": {
           "hasSize": ["size>0 && size<100"],  //校验数据行数
           "hasColumnCount": ["count>0 && count<10"],  //校验字段个数
-          "hasMin": ["age:min>=18 && min<=35"],  //校验单个数值型字段的最小值
-          "hasMax": ["age:max>=60 && max<120"],  //校验单个数值型字段的最大值
-          "hasMean": ["age:mean>=18 && mean<=35"],  //校验单个数值型字段的平均值
-          "hasSum": ["salary:sum>0 && sum<100000"],  //校验单个数值型字段的汇总值
-          "isNonNegative": ["age"],  //校验单个数值型字段为非负值
-          "isPositive": ["age"],  //校验单个数值型字段为大于0的正值
-          "hasMinLength": ["name:length==2"],  //校验单个文本型字段的最小长度
-          "hasMaxLength": ["name:length==4"]  //校验单个文本型字段的最大长度
+          "hasMin": ["age:min>=18 && min<=35"],  //校验数值型字段的最小值
+          "hasMax": ["age:max>=60 && max<120"],  //校验数值型字段的最大值
+          "hasMean": ["age:mean>=18 && mean<=35"],  //校验数值型字段的平均值
+          "hasSum": ["salary:sum>0 && sum<100000"],  //校验数值型字段的汇总值
+          "isNonNegative": ["age"],  //校验数值型字段为非负数
+          "isPositive": ["age"],  //校验数值型字段为非0正数
+          "hasMinLength": ["name:length==2"],  //校验文本型字段的最小长度
+          "hasMaxLength": ["name:length==4"]  //校验文本型字段的最大长度
         },
         "checkCompleteness": {
-          "isComplete": ["id"],  //校验单个字段为空值
-          "areComplete": ["id,name"],  //校验组合字段全部为空值
-          "areAnyComplete": ["age,birthday"],  //校验组合字段任一为空值
-          "hasCompleteness": ["age:ratio>0.2"],  //校验单个字段为空值比例
-          "haveCompleteness": ["name,age:ratio>0.2"],  //校验组合字段全部为空值比例
-          "haveAnyCompleteness": ["name,age:ratio>0.2"]  //校验组合字段任一为空值比例
+          "isComplete": ["id"],  //校验单个字段非空
+          "areComplete": ["id,name"],  //校验组合字段全部非空
+          "areAnyComplete": ["age,birthday"],  //校验组合字段任一非空
+          "hasCompleteness": ["age:ratio>0.2"],  //校验单个字段非空比例
+          "haveCompleteness": ["name,age:ratio>0.2"],  //校验组合字段全部非空比例
+          "haveAnyCompleteness": ["name,age:ratio>0.2"]  //校验组合字段任一非空比例
         },
         "checkConsistency": {
-          "isLessThan": ["n1,n2"],  //校验每一行的字段A值小于字段B值
-          "isLessThanOrEqualTo": ["n1,n2"],  //校验每一行的字段A值小于或等于字段B值
-          "isGreaterThan": ["n1,n2"],  //校验每一行的字段A值大于字段B值
-          "isGreaterThanOrEqualTo": ["n1,n2"],  //校验每一行的字段A值大于或等于字段B值
+          "isLessThan": ["n1,n2"],  //校验每行数据的字段A值小于字段B值
+          "isLessThanOrEqualTo": ["n1,n2"],  //校验每行数据的字段A值小于或等于字段B值
+          "isGreaterThan": ["n1,n2"],  //校验每行数据的字段A值大于字段B值
+          "isGreaterThanOrEqualTo": ["n1,n2"],  //校验每行数据的字段A值大于或等于字段B值
           "isContainedIn": ["sex:男,女"],  //校验字段值分布在一组固定值中
           "hasMutualInformation": ["city,address:ratio>0.5"]  //校验字段A和字段B的数据相互关系
         },
         "checkEffectiveness": {
-          "containsCreditCardNumber": ["creditCardNumber:ratio>0.8"],  //校验单个字段为信用卡号的比例
-          "containsEmail": ["email:ratio>0.8"],  //校验单个字段为邮箱账号的比例
-          "containsURL": ["url:ratio>0.8"],  //校验单个字段为URL地址的比例
-          "containsSocialSecurityNumber": ["socialSecurityNumber:ratio>0.8"],  //校验单个字段为社交账号的比例
+          "containsIdCard": ["idCard:ratio>0.8"],  //校验字段为身份证号的比例
+          "containsMobilePhone": ["mobile:ratio>0.8"],  //校验字段为手机号码的比例
+          "containsTelePhone": ["tele:ratio>0.8"],  //校验字段为电话号码的比例
+          "containsBankCard": ["bankcard:ratio>0.8"],  //校验字段为银行卡号的比例
+          "containsEmail": ["email:ratio>0.8"],  //校验字段为邮箱账号的比例
+          "containsURL": ["url:ratio>0.8"],  //校验字段为URL地址的比例
+          "containsIP": ["ip:ratio>0.8"],  //校验字段为IP地址的比例
+          "containsLongitude": ["longitude:ratio>0.8"],  //校验字段为经度的比例
+          "containsLatitude": ["latitude:ratio>0.8"],  //校验字段为纬度的比例
           "hasDataType": ["id:Numeric"],  //校验单个字段是否符合指定数据类型
           "hasPattern": ["idcard:pattern"]  //校验单个字段是否符合指定的正则表达
         },
         "checkUniqueness": {
-          "isUnique": ["id"],  //校验单个字段唯一性
+          "isUnique": ["id"],  //校验字段唯一性
           "isPrimaryKey": ["id,name"],  //校验字段是否为主键
-          "hasUniqueness": ["id:ratio==1"],  //校验单个字段的唯一性比例
-          "haveUniqueness": ["name,age:ratio>0.5"],  //校验组合字段的唯一性比例
-          "hasDistinctness": ["id:ratio==1"],  //校验单个字段的去重性比例
-          "haveDistinctness": ["name,age:ratio>0.5"],  //校验组合字段的去重性比例
-          "hasUniqueValueRatio": ["id:ratio==1"],  //校验单个字段的唯一性比例
-          "haveUniqueValueRatio": ["name,age:ratio>0.5"],  //校验组合字段的唯一性比例
+          "hasUniqueness": ["id:ratio==1"],  //校验单个字段唯一性比例
+          "haveUniqueness": ["name,age:ratio>0.5"],  //校验组合字段唯一性比例
+          "hasDistinctness": ["id:ratio==1"],  //校验单个字段去重性比例
+          "haveDistinctness": ["name,age:ratio>0.5"],  //校验组合字段去重性比例
+          "hasUniqueValueRatio": ["id:ratio==1"],  //校验单个字段唯一性比例
+          "haveUniqueValueRatio": ["name,age:ratio>0.5"],  //校验组合字段唯一性比例
           "hasNumberOfDistinctValues": ["name:number>0 && number<10"]  //校验单个字段去重后的个数
         }
       },
