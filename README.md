@@ -118,7 +118,7 @@
 |                            |hasDataType              |校验字段是否符合指定数据类型            |"hasDataType": ["id:Numeric"]                              |
 |                            |hasPattern               |校验字段是否符合指定的正则表达          |"hasPattern": ["mobile:^1[3-9]\d{9}$"]                     |
 |一致性(checkConsistency)    |isLessThan               |校验每行数据的字段c1值小于字段c2值      |"isLessThan": ["c1,c2"]                                    |
-|                            |isLessThanOrEqualTo      |校验每行数据的字段c1值小于或等于字段c2值|"isLessThanOrEqualTo": ["n1,n2"]                           |
+|                            |isLessThanOrEqualTo      |校验每行数据的字段c1值小于或等于字段c2值|"isLessThanOrEqualTo": ["c1,c2"]                           |
 |                            |isGreaterThan            |校验每行数据的字段c1值大于字段c2值      |"isGreaterThan": ["c1,c2"]                                 |
 |                            |isGreaterThanOrEqualTo   |校验每行数据的字段c1值大于或等于字段c2值|"isGreaterThanOrEqualTo": ["c1,c2"]                        |
 |                            |isContainedIn            |校验字段值分布在一组固定值中            |"isContainedIn": ["sex:男,女"]                             |
@@ -651,10 +651,10 @@
           "haveAnyCompleteness": ["name,age:ratio>0.2"]
         },
         "checkConsistency": {
-          "isLessThan": ["n1,n2"],
-          "isLessThanOrEqualTo": ["n1,n2"],
-          "isGreaterThan": ["n1,n2"],
-          "isGreaterThanOrEqualTo": ["n1,n2"],
+          "isLessThan": ["c1,c2"],
+          "isLessThanOrEqualTo": ["c1,c2"],
+          "isGreaterThan": ["c1,c2"],
+          "isGreaterThanOrEqualTo": ["c1,c2"],
           "isContainedIn": ["sex:男,女"],
           "hasMutualInformation": ["city,address:ratio>0.5"]
         },
