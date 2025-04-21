@@ -753,10 +753,13 @@ Examples:
   3.自定义配置文件和规则文件
   $ stark-run --config ../conf/stark.properties --rule ../rule/rule.json
 
-  4.提交任务到SPARK独立集群
+  4.以本地模式提交任务
+  $ stark-run --master local[*]
+
+  5.提交任务到SPARK独立集群
   $ stark-run --master spark://host:port --deploy-mode cluster
 
-  5.提交任务到YARN集群
+  6.提交任务到YARN集群
   $ stark-run --master yarn --deploy-mode cluster --queue default
 ```
 * 任务执行结束后，查看 `sink` 节点指定的数据连接及输出，验证数据是否写入成功
