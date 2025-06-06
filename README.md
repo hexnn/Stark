@@ -209,6 +209,7 @@
         "sk_jdbc_sqlserver",
         "sk_jdbc_db2",
         "sk_jdbc_hive",
+        "sk_jdbc_impala",
         "sk_jdbc_doris",
         "sk_jdbc_starrocks",
         "sk_jdbc_phoenix",
@@ -222,10 +223,12 @@
         "sk_file_parquet",
         "sk_file_xml",
         "sk_hive",
+        "sk_iceberg",
         "sk_kafka",
         "sk_hbase",
         "sk_mongodb",
-        "sk_elasticsearch"
+        "sk_elasticsearch",
+        "sk_redis"
       ]
     }
   ],
@@ -317,6 +320,18 @@
       "connection": {
         "url": "jdbc:hive2://127.0.0.1:10000/stark",
         "driver": "org.apache.hive.jdbc.HiveDriver",
+        "user": "stark",
+        "dataset": "users"
+      }
+    },
+	{
+      "identifier": "sk_jdbc_impala",
+      "name": "通过JDBC协议输出到IMPALA(离线任务)",
+      "type": "IMPALA",
+      "mode": "APPEND",
+      "connection": {
+        "url": "jdbc:impala://127.0.0.1:21050/stark",
+        "driver": "com.cloudera.impala.jdbc.Driver",
         "user": "stark",
         "dataset": "users"
       }
@@ -459,6 +474,17 @@
         "dataset": "users"
       }
     },
+	{
+      "identifier": "sk_iceberg",
+      "name": "通过ThriftServer协议输出到ICEBERG(实时更新)",
+      "type": "ICEBERG",
+      "mode": "APPEND",
+      "connection": {
+        "url": "thrift://127.0.0.1:9083",
+        "database": "stark",
+        "dataset": "users"
+      }
+    },
     {
       "identifier": "sk_kafka",
       "name": "输出到Kafka消息队列(实时更新)",
@@ -501,6 +527,17 @@
       "connection": {
         "url": "127.0.0.1",
         "port": "9200",
+        "dataset": "users"
+      }
+    },
+	{
+      "identifier": "sk_redis",
+      "name": "输出到Redis缓存数据库(实时更新)",
+      "type": "REDIS",
+      "mode": "APPEND",
+      "connection": {
+        "url": "127.0.0.1",
+        "port": "6379",
         "dataset": "users"
       }
     }
