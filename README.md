@@ -131,6 +131,61 @@
 |                            |isContainedIn            |校验字段值分布在一组固定值中            |"isContainedIn": ["sex:男,女"]                             |
 |                            |hasMutualInformation     |校验字段c1和字段c2的数据相互关系        |"hasMutualInformation": ["city,address:ratio>0.5"]         |
 
+## 敏感类型识别特性（持续更新中）
+|一级分类    |二级分类             |敏感类型标识                        |类型描述              |
+|:----------:|:-------------------:|:----------------------------------:|:--------------------:|
+|PEP(人)     |PEP_STD(基础信息)    |PEP_STD_FULLNAME                    |姓名                  |
+|            |                     |PEP_STD_GENDER                      |性别                  |
+|            |                     |PEP_STD_IDCARD                      |身份证号码            |
+|            |                     |PEP_STD_ETHNICITY                   |民族                  |
+|            |                     |PEP_STD_AGE                         |年龄                  |
+|            |                     |PEP_STD_HEIGHT                      |身高                  |
+|            |                     |PEP_STD_WEIGHT                      |体重                  |
+|            |                     |PEP_STD_BLOOD                       |血型                  |
+|            |                     |PEP_STD_MARITAL                     |婚姻状况              |
+|            |                     |PEP_STD_PASSPORT                    |护照号码              |
+|            |                     |PEP_STD_PERMANENT_RESIDENCE_PERMIT  |外国人永久居留证号码  |
+|            |                     |PEP_STD_OFFICER                     |军官证号码            |
+|            |PEP_CTC(联系方式)    |PEP_CTC_MOBILEPHONE                 |手机号码              |
+|            |                     |PEP_CTC_TELEPHONE                   |电话号码              |
+|            |                     |PEP_CTC_EMAIL                       |邮箱账号              |
+|            |                     |PEP_CTC_WECHAT                      |微信号                |
+|            |                     |PEP_CTC_QQ                          |QQ号                  |
+|            |PEP_EDU(教育信息)    |PEP_EDU_BACKGROUND                  |文化程度              |
+|            |                     |PEP_EDU_SCHOOL                      |毕业院校              |
+|            |                     |PEP_EDU_MAJOR                       |专业领域              |
+|            |PEP_JOB(职业信息)    |PEP_JOB_POSITION                    |职业                  |
+|            |PEP_FIN(财务信息)    |PEP_FIN_BANKCARD                    |银行卡号              |
+|LOC(地)     |LOC_STD(基础信息)    |LOC_STD_REGIONALISM_CODE            |行政区划代码          |
+|            |                     |LOC_STD_PROVINCE                    |省级                  |
+|            |                     |LOC_STD_CITY                        |地级                  |
+|            |                     |LOC_STD_COUNTY                      |县级                  |
+|            |                     |LOC_STD_TOWN                        |乡级                  |
+|            |LOC_POS(位置信息)    |LOC_POS_ADDRESS                     |地址                  |
+|            |                     |LOC_POS_POSTAL                      |邮政编码              |
+|            |                     |LOC_POS_LONGITUDE                   |经度                  |
+|            |                     |LOC_POS_LATITUDE                    |纬度                  |
+|OBJ(物)     |OBJ_CAR(汽车)        |OBJ_CAR_VIN                         |车架号                |
+|            |                     |OBJ_CAR_NUMBER                      |车牌号                |
+|            |OBJ_TRN(火车)        |OBJ_TRN_NUMBER                      |车次                  |
+|            |                     |OBJ_TRN_SEATS                       |席别                  |
+|NET(网)     |NET_STD(基础信息)    |NET_STD_URL                         |URL地址               |
+|            |                     |NET_STD_IP                          |IP地址                |
+|            |                     |NET_STD_PORT                        |端口号                |
+|            |                     |NET_STD_MASK                        |子网掩码              |
+|            |                     |NET_STD_MAC                         |MAC地址               |
+|            |                     |NET_STD_PROTOCOL                    |协议类型              |
+|            |NET_DEV(开发信息)    |NET_DEV_LINUX_PATH                  |Linux路径             |
+|            |                     |NET_DEV_WINDOWS_PATH                |Windows路径           |
+|            |                     |NET_DEV_MD5                         |MD5                   |
+|            |                     |NET_DEV_UUID                        |GUID/UUID             |
+|            |                     |NET_DEV_BASE64                      |Base64                |
+|ENV(情)     |ENV_WEA(天气信息)    |ENV_WEA_TEMPERATURE                 |温度                  |
+|            |ENV_STK(股市信息)    |ENV_STK_CODE                        |股票代码              |
+|ORG(组织)   |ORG_BIZ(工商信息)    |ORG_BIZ_NAME                        |企业名称              |
+|            |                     |ORG_BIZ_UNIFIED_SOCIAL_CREDIT_CODE  |统一社会信用代码      |
+|            |                     |ORG_BIZ_REGISTRATION_STATUS         |企业登记状态          |
+
 ## 数据集成+数据开发+数据模型规则文件样例（开箱即用，批流一体）
 ```
 {
