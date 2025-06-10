@@ -546,8 +546,8 @@
       "type": "KAFKA",
       "mode": "APPEND",
       "connection": {
-        "kafka.bootstrap.servers": "node01:9092,node02:9092,node03:9092",
-        "topic": "users"
+        "url": "node01:9092,node02:9092,node03:9092",
+        "dataset": "users"
       }
     },
     {
