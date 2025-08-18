@@ -60,28 +60,31 @@
 |云原生数据库  |Snowflake    |√         |√         |          |√         |        |增,删,改|
 
 ## 机器学习算法特性（持续更新中）
-|学习方式     |算法类型     |算法名称                        |算法简称     |算法描述           |应用场景       |
-|:----------:|:-----------:|:------------------------------:|:----------:|:-----------------|:-------------|
-|有监督学习   |分类算法      |DecisionTreeClassifier         |DTC         |决策树分类          |二分类,多分类  |
-|            |             |FMClassifier                   |FMC         |因子分解机分类       |二分类        |
-|            |             |GBTClassifier                  |GBTC        |梯度提升树分类       |二分类        |
-|            |             |LogisticRegression             |LRC         |逻辑回归分类         |二分类        |
-|            |             |MultilayerPerceptronClassifier |MLPC        |多层感知器分类       |二分类,多分类  |
-|            |             |NaiveBayes                     |NBC         |朴素贝叶斯分类       |二分类,多分类  |
-|            |             |RandomForestClassifier         |RFC         |随机森林分类         |二分类,多分类  |
-|            |             |LinearSVC                      |SVC         |线性SVM分类         |二分类        |
-|            |回归算法      |AFTSurvivalRegression          |AFTSR       |加速失效时间模型回归 |数据预测      |
-|            |             |DecisionTreeRegressor          |DTR         |决策树回归          |数据预测      |
-|            |             |FMRegressor                    |FMR         |因子分解机回归       |数据预测      |
+|学习方式     |算法类型     |算法名称                        |算法简称     |算法描述           |应用场景        |
+|:----------:|:-----------:|:------------------------------:|:----------:|:-----------------|:--------------|
+|有监督学习   |分类算法      |DecisionTreeClassifier         |DTC         |决策树分类          |二分类,多分类   |
+|            |             |FMClassifier                   |FMC         |因子分解机分类       |二分类         |
+|            |             |GBTClassifier                  |GBTC        |梯度提升树分类       |二分类         |
+|            |             |LogisticRegression             |LRC         |逻辑回归分类         |二分类         |
+|            |             |MultilayerPerceptronClassifier |MLPC        |多层感知器分类       |二分类,多分类   |
+|            |             |NaiveBayes                     |NBC         |朴素贝叶斯分类       |二分类,多分类   |
+|            |             |RandomForestClassifier         |RFC         |随机森林分类         |二分类,多分类   |
+|            |             |LinearSVC                      |SVC         |线性SVM分类         |二分类          |
+|            |回归算法      |AFTSurvivalRegression          |AFTSR       |加速失效时间模型回归 |数据预测        |
+|            |             |DecisionTreeRegressor          |DTR         |决策树回归          |数据预测        |
+|            |             |FMRegressor                    |FMR         |因子分解机回归       |数据预测       |
 |            |             |GBTRegressor                   |GBTR        |梯度提升树回归       |数据预测       |
 |            |             |GeneralizedLinearRegression    |GLMR        |广义线性模型回归     |数据预测       |
 |            |             |IsotonicRegression             |IR          |保序回归            |数据预测       |
 |            |             |LinearRegression               |LR          |线性回归            |数据预测       |
 |            |             |RandomForestRegressor          |RFR         |随机森林回归         |数据预测       |
 |            |推荐算法      |AlternatingLeastSquares        |ALS         |交替最小二乘法       |数据推荐       | 
-|无监督学习   |聚类算法      |KMeans                         |KMEANS      |K均值聚类           |聚类          |
-|            |             |GaussianMixture                |GM          |高斯混合模型         |聚类          |
-|            |             |LDA                            |LDA         |潜在狄利克雷分配     |聚类          |
+|无监督学习   |聚类算法      |KMeans                         |KMEANS      |K均值聚类           |聚类           |
+|            |             |GaussianMixture                |GM          |高斯混合模型         |聚类           |
+|            |             |LDA                            |LDA         |潜在狄利克雷分配     |聚类           |
+|            |统计算法      |Correlation                    |CORR        |相关性检测          |预处理,特征选择 |
+|            |             |ChiSquareTest                  |CST         |卡方校验            |预处理,特征选择 |
+|            |             |Summarizer                     |SUMMARY     |汇总器              |预处理,特征选择 |
 
 ## 数据质量校验特性（持续更新中）
 |质量维度                    |规则参数                 |规则描述                                |使用示例     			                                    |
